@@ -69,7 +69,7 @@
                                 <td>{{ $track->authors }}</td>
                                 <td>{{ $track->song_name }}</td>
                                 <td>{{ $track->genre }}</td>
-                                <td><audio controls> <source src="{{ "audio/".$track->id }}" type="audio/mpeg">Your browser does not support the audio element.</audio></td>
+                                <td><audio controls> <source src="{{ "/audio/".$track->id }}" type="audio/mpeg">Your browser does not support the audio element.</audio></td>
                             </tr>
                         @endforeach
                     </table>

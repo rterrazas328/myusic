@@ -15,7 +15,7 @@
 					<br>
 
 					<div class="col-md-10 col-md-offset-1">
-						<a href="profile" class="thumbnail" >
+						<a href="userprofile" class="thumbnail" >
 							@if( empty(Auth::user()->profile->profile_picture))
 								<img class="img-responsive" src="/img/icon.png" alt="">
 							@else
@@ -48,7 +48,7 @@
                                 <td>{{ $track->authors }}</td>
                                 <td>{{ $track->song_name }}</td>
                                 <td>{{ $track->genre }}</td>
-                                <td><audio controls> <source src="{{ "private/audio/".$track->id }}" type="audio/mpeg">Your browser does not support the audio element.</audio></td>
+                                <td><audio controls> <source src="{{ "/audio/".$track->id }}" type="audio/mpeg">Your browser does not support the audio element.</audio></td>
                             </tr>
                         @endforeach
 					</table>

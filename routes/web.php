@@ -5,8 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MusicController;
 use App\Http\Controllers\ResourcesController;
-
-
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,12 +19,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware('guest')->group(function () {
 //root route
 Route::get('/', [GuestController::class, 'index']);
+//guest routes
+Route::get('/username', [GuestController::class, 'getUserName']);
+Route::post('/username', [GuestController::class, 'postUserName']);
+});
 
+
+Route::middleware('auth')->group(function () {
 //user routes
-Route::get('/home', [UserController::class, 'index']);
-Route::get('/profile',[UserController::class, 'getProfile']);
+Route::get('/home', [UserController::class, 'index'])->name('home');
+Route::get('/userprofile',[UserController::class, 'getProfile']);
 Route::post('/saveprofile',[UserController::class, 'saveProfile']);
 Route::post('/saveprofilepic',[UserController::class, 'savePicture']);
 Route::post('/saveaboutme',[UserController::class, 'saveAboutMe']);
@@ -48,12 +54,36 @@ Route::post('/editplaylist', [MusicController::class, 'editPlaylist']);
 //resource routes
 Route::get('/image', [ResourcesController::class, 'loadImage']);
 Route::get('/audio/{id}', [ResourcesController::class, 'loadAudio']);
+});
 
-//guest routes
-Route::get('/username', [GuestController::class, 'getUserName']);
-Route::post('/username', [GuestController::class, 'postUserName']);
+Route::get('/test-mail', function () {
+    Mail::raw('Mailgun test successful!', function ($message) {
+        $message->to('rterrazas328@gmail.com')->subject('Mailgun Test');
+    });
+
+    return 'Sent!';
+});
 
 
 /*Route::get('/', function () {
     return view('welcome');
 });*/
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
+
+
+
+
+
+
+

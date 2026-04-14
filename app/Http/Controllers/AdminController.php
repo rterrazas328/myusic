@@ -17,8 +17,7 @@ class AdminController extends Controller {
     public function __construct()
     {
         //make sure user is authenticated else redirect to login
-        $this->middleware('auth');
-        $this->middleware('admin');
+        //$this->middleware('admin');
     }
 
     public function adminPage(){

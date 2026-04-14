@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Track;
 use App\Models\Playlist;
-//use RequestF;
 use Illuminate\Http\Request;
 use Validator;
 use DB;
@@ -22,7 +21,7 @@ class MusicController extends Controller{
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     public function getTracks(){
@@ -50,7 +49,7 @@ class MusicController extends Controller{
     }
 
     public function saveTrack(Request $request){
-        $this->validate($request, [
+        $request->validate([
             'mp3' => 'max:7000',
         ]);
         //'mp3' => 'file|mimes:mp3,wav,ogg|max:7000',
@@ -74,21 +73,19 @@ class MusicController extends Controller{
         'FILES superglobal' => $_FILES,
             ]);*/
 
-
-
         //if (RequestF::hasFile('mp3')){
         if ($request->hasFile('mp3')){
             $file = $request->file('mp3');
             //echo "Request had file" . print_r($file);
             if ($file->isValid()){
-                $target_dir = "private/audio/".$userID;
+                $target_dir = "audio/".$userID;
                 //echo "Target Dir:" . print_r($target_dir);
                 //if target_dir doesn't exist, create it
                 if(!is_dir($target_dir)){
                     Storage::makeDirectory($target_dir);
                 }
 
-                $path = $file->store("private/audio/".$userID);
+                $path = $file->store("audio/".$userID);
                 if (!$path){
                     //abort(500);
                     return redirect('/tracks');
@@ -149,7 +146,7 @@ class MusicController extends Controller{
 
     public function savePlaylist(Request $request, $id = null){
 
-        $this->validate($request, [
+        $request->validate([
             'playlistName' => 'required|string|max:20',
         ]);
 
@@ -197,7 +194,7 @@ class MusicController extends Controller{
 
     public function deletePlaylist(Request $request){
 
-        $this->validate($request, [
+        $request->validate([
             'delete' => 'required',
         ]);
 
@@ -206,8 +203,8 @@ class MusicController extends Controller{
         $playlist = Playlist::find($playlistID);
 
         if($playlist != null){
-            $playlist->delete();
             DB::delete('DELETE FROM playlist_songs where playlist_id = ?', [$playlistID]);
+            $playlist->delete();
         }
 
         return redirect('/playlists');

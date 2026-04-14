@@ -80,7 +80,7 @@
 
                     <ul class="nav navbar-nav">
                         <li id="homePage"><a href="/home">Home</a></li>
-                        <li id="profilePage"><a href="/profile">Profile</a></li>
+                        <li id="profilePage"><a href="/userprofile">Profile</a></li>
                         <li id="tracksPage"><a href="/tracks">Tracks</a></li>
                         <li id="playlistsPage"><a href="/playlists">Playlists</a></li>
                     </ul>
@@ -88,7 +88,17 @@
                         @if (Auth::user()['userlevel'] == 1)
                             <li id="adminPage"><a href="/admin">Admin</a></li>
                         @endif
-                        <li id="logoutPage"><a href="{{ route('logout') }}"><u>Logout</u></a></li>
+                        <!--<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li>-->
+									<form class="btn btn-link" action="{{ route('logout') }}" method="POST">
+										@csrf
+										<button type="submit" class="dropdown-item">Logout</button>
+									</form>
+								<!--</li>
+							</ul>
+						</li>-->
                     </ul>
                 @else
                     <ul class="nav navbar-nav">

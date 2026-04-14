@@ -32,7 +32,7 @@ class UserController extends Controller {
 	public function __construct()
 	{
 		//make sure user is authenticated else redirect to login
-		$this->middleware('auth');
+
 	}
 
 	/**
@@ -95,17 +95,22 @@ class UserController extends Controller {
 
 	public function saveProfile(Request $request){
 
-		$this->validate($request, [
+		$request->merge([
+			'bday' => $request->bday == 'YYYY-MM-DD' ? null : $request->bday
+		]);
+
+
+		$request->validate([
 			'honeypot' => 'required|in:IS-421-RRZ',
-			'firstname' => 'alpha|between:2,30',
-			'lastname' => 'alpha|between:2,30',
+			'firstname' => 'nullable|alpha|between:2,30',
+			'lastname' => 'nullable|alpha|between:2,30',
 			'username' => 'alpha_dash|between:4,30',
-			'address' => 'string|between:2,30',
-			'city' => 'alpha|between:2,30',
-			'state' => 'alpha|between:2,20',
-			'country' => 'alpha|between:2,30',
-			'bday' => 'date',
-			'phone' => 'alpha_dash|between:7,25',
+			'address' => 'nullable|string|between:2,30',
+			'city' => 'nullable|alpha|between:2,30',
+			'state' => 'nullable|alpha|between:2,20',
+			'country' => 'nullable|alpha|between:2,30',
+			'bday' => 'nullable|date',
+			'phone' => 'nullable|alpha_dash|between:7,25',
 			'email' => 'email|max:50',
 		]);
 
@@ -126,7 +131,12 @@ class UserController extends Controller {
 		$userProfile->state = $request->input('state');
 		$userProfile->country = $request->input('country');
 		$bday = $request->input('bday') == '' ?  null : $request->input('bday');
-		$userProfile->birthdate = date("Y-m-d", strtotime($bday));
+		if($bday == null){
+			$userProfile->birthdate = null;
+		}
+		else{
+			$userProfile->birthdate = date("Y-m-d", strtotime($bday));
+		}
 		$userProfile->phone = $request->input('phone');
 		$user->email = $request->input('email');
 
@@ -134,11 +144,11 @@ class UserController extends Controller {
 		$user->save();
 		$userProfile->save();
 
-		return redirect('/profile');
+		return redirect('/userprofile');
 	}
 
 	public function savePicture(Request $request){
-		$this->validate($request, [
+		$request->validate([
 			'image' => 'image|max:8000'
 		]);
 
@@ -151,7 +161,7 @@ class UserController extends Controller {
 		if ($request->hasFile('image')){
 			$file = $request->file('image');
 			if ($file->isValid()){
-				$target_dir = "private/images/".$userID;
+				$target_dir = "images/".$userID;
 				//check if /storage/app/private/images/userid is a real directory that exists
 				if(!is_dir($target_dir)){
 					Storage::makeDirectory($target_dir);
@@ -159,10 +169,10 @@ class UserController extends Controller {
 				//should be try catch not if else
 				//move file to proper user storage dir
 
-				$path = $file->store("private/images/$userID");
+				$path = $file->store("images/$userID");
 				if (!$path){
                     //abort(500);
-                    return redirect('/profile');
+                    return redirect('/userprofile');
                 }
 				//opt for try catch here
 				//if($file->move(storage_path() . "/app/" .$target_dir, $file->getClientOriginalName()	)){//error: moves to /public dir
@@ -182,16 +192,16 @@ class UserController extends Controller {
 					$userProfile->profile_picture = $path;
 
 					$userProfile->save();
-					return redirect('/profile');
+					return redirect('/userprofile');
 				
 			}
 		}
 
-		return redirect('/profile');
+		return redirect('/userprofile');
 	}
 
 	public function saveAboutMe(Request $request){
-		$this->validate($request, [
+		$request->validate([
 			'aboutme' => 'string|max:500',
 		]);
 
@@ -207,7 +217,7 @@ class UserController extends Controller {
 		//fill in fields
 		$userProfile->about_me = $request->input('aboutme');
 		$userProfile->save();
-		return redirect('/profile');
+		return redirect('/userprofile');
 	}
 
 
