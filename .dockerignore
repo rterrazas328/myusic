@@ -1,0 +1,56 @@
+# Git
+.git
+.gitignore
+
+# Environment / secrets
+.env
+.env.*
+secrets
+
+# Dependencies (will be installed inside container)
+vendor/
+node_modules/
+
+# Logs & debug
+npm-debug.log
+yarn-error.log
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+
+# Laravel storage (keep structure, not contents)
+storage/*.key
+storage/app/*
+!storage/app/.gitignore
+
+# Build artifacts
+public/build
+public/hot
+public/storage
+
+# IDE / editor files
+.phpunit.cache
+.phpunit.result.cache
+.phpactor.json
+/.fleet
+/.idea
+/.vscode
+/.zed
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Testing
+phpunit.xml
+tests/
+
+# Homestead / Vagrant
+Homestead.yaml
+Homestead.json
+/.vagrant
+
+# Misc
+auth.json
+LICENSE
