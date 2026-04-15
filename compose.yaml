@@ -123,7 +123,7 @@ secrets:
   db_password:
     file: secrets/db_password.txt
   db_root_password:
-    file: secrets/db_root.txt
+    file: secrets/db_root_password.txt
   vite_app_name:
     file: secrets/vite_app_name.txt
 
