@@ -56,6 +56,10 @@ else
   fi
 fi
 
+# Force correct Apache MPM (Railway fix)
+a2dismod mpm_event mpm_worker 2>/dev/null || true
+a2enmod mpm_prefork
+
 
 php artisan config:clear
 
