@@ -53,7 +53,9 @@ var validate = function(){
     uname.add(Validate.Length, {minimum: 2, maximum: 25});
 
     var pass = new LiveValidation('password', { validMessage: "Valid!"});
-    pass.add(Validate.Format, {pattern: /^[a-zA-Z][0-9a-zA-Z]{7,15}$/});
+    pass.add(Validate.Format, {
+        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,64}$/
+    });
 
 
 

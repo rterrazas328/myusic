@@ -61,7 +61,9 @@ var validate = function(){
 
     var pass = new LiveValidation('signup-v1-password', { validMessage: "Valid!"});
 
-    pass.add(Validate.Format, {pattern: /^[a-zA-Z][0-9a-zA-Z]{7,15}$/});
+    pass.add(Validate.Format, {
+        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,64}$/
+    });
 
 
     var confpass = new LiveValidation('signup-v1-password_confirmation', { validMessage: "Valid!"});
