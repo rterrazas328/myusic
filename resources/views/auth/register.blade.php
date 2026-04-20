@@ -23,7 +23,7 @@
 			</div>
 		@endif
 
-		<form  class="form-horizontal col-md-4 col-md-offset-4" id="form-signup_v1" name="form-signup_v1" action="{{ route('register') }}" method="POST"  >
+		<form  class="form-horizontal col-md-4 col-md-offset-4" id="form-signup_v1" name="form-signup_v1" action="{{ route('register.user') }}" method="POST"  >
 			@csrf
 			<input type="hidden" name="honeypot" value="IS-421-RRZ" />
 			<div class="form-group">

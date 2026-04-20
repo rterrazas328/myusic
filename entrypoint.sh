@@ -66,7 +66,7 @@ php artisan config:clear
 
 echo "MySQL is up - running migrations..."
 
-php artisan migrate
+php artisan migrate --force
 
 npm install
 
