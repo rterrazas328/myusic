@@ -42,7 +42,7 @@ return [
             'transport' => 'mailgun',
         ],
 
-        'smtp' => [
+        /*'smtp' => [
             'transport' => 'smtp',
             //'scheme' => env('MAIL_SCHEME'),
             //'url' => env('MAIL_URL'),
@@ -53,7 +53,7 @@ return [
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'timeout' => null,
             //'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
-        ],
+        ],//*/
 
         'ses' => [
             'transport' => 'ses',

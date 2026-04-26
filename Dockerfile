@@ -48,7 +48,7 @@ RUN echo "upload_max_filesize=8M" > /usr/local/etc/php/conf.d/uploads.ini \
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Install Node dependencies (for Breeze)
-RUN npm install
+RUN npm install && npm run build
 
 # Set correct permissions
 RUN chown -R www-data:www-data /var/www/html \

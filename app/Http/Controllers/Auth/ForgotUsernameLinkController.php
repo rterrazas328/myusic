@@ -35,9 +35,9 @@ class ForgotUsernameLinkController extends Controller
         $userEmail = $request->only('email');
         $results = DB::select('SELECT user FROM users WHERE email = ?', [$userEmail['email']]);
 
-        $eMessage = "Your username is ".$results[0]->user;
 
 		if($results){
+            $eMessage = "Your username is ".$results[0]->user;
 			Mail::raw($eMessage, function($message) use ($userEmail){
 
 				$message->to($userEmail['email'])->subject('User Name Retrieval!');

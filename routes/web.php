@@ -7,6 +7,7 @@ use App\Http\Controllers\MusicController;
 use App\Http\Controllers\ResourcesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+//use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,11 +58,30 @@ Route::get('/audio/{id}', [ResourcesController::class, 'loadAudio']);
 });
 
 Route::get('/test-mail', function () {
-    Mail::raw('Mailgun test successful!', function ($message) {
+    try {
+        Mail::raw('Mailgun test successful!', function ($message) {
+            $message->to('rterrazas328@gmail.com')
+                    ->subject('Mailgun Test');
+        });
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Email sent successfully!'
+        ]);
+
+    } catch (Exception $e) {
+
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'trace' => $e->getTraceAsString() // optional, but very useful
+        ], 500);
+    }
+    /*Mail::raw('Mailgun test successful!', function ($message) {
         $message->to('rterrazas328@gmail.com')->subject('Mailgun Test');
     });
 
-    return 'Sent!';
+    return 'Sent!';*/
 });
 
 

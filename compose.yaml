@@ -25,9 +25,6 @@ services:
       LOG_STACK: single
       LOG_DEPRECATIONS_CHANNEL: null
       LOG_LEVEL: error
-      MAIL_MAILER: smtp
-      MAIL_SCHEME: null
-      MAIL_ENCRYPTION: tls
       SESSION_DRIVER: database
       SESSION_LIFETIME: 120
       SESSION_ENCRYPT: false
@@ -46,13 +43,9 @@ services:
       - app_key
       - app_name
       - email_domain
-      - email_host
-      - email_port
       - email_from_address
       - email_from_name
       - email_key
-      - email_username
-      - email_password
       - db_connection
       - db_port
       - db_database
@@ -98,20 +91,12 @@ secrets:
     file: secrets/app_name.txt
   email_domain:
     file: secrets/email_domain.txt
-  email_host:
-    file: secrets/email_host.txt
-  email_port:
-    file: secrets/email_port.txt
   email_from_address:
     file: secrets/email_from_address.txt
   email_from_name:
     file: secrets/email_from_name.txt
-  email_username:
-    file: secrets/email_username.txt
   email_key:
     file: secrets/email_key.txt
-  email_password:
-    file: secrets/email_password.txt
   db_connection:
     file: secrets/db_connection.txt
   db_port:

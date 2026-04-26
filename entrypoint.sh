@@ -30,12 +30,12 @@ else
   if [ -e /run/secrets/email_domain ]; then
     export MAILGUN_DOMAIN=$(cat /run/secrets/email_domain)
   fi
-  if [ -e /run/secrets/email_host ]; then
-    export MAIL_HOST=$(cat /run/secrets/email_host)
-  fi
-  if [ -e /run/secrets/email_port ]; then
-    export MAIL_PORT=$(cat /run/secrets/email_port)
-  fi
+  #if [ -e /run/secrets/email_host ]; then
+  #  export MAIL_HOST=$(cat /run/secrets/email_host)
+  #fi
+  #if [ -e /run/secrets/email_port ]; then
+  #  export MAIL_PORT=$(cat /run/secrets/email_port)
+  #fi
   if [ -e /run/secrets/email_from_address ]; then
     export MAIL_FROM_ADDRESS=$(cat /run/secrets/email_from_address)
   fi
@@ -45,12 +45,12 @@ else
   if [ -e /run/secrets/email_key ]; then
     export MAILGUN_SECRET=$(cat /run/secrets/email_key)
   fi
-  if [ -e /run/secrets/email_username ]; then
-    export MAIL_USERNAME=$(cat /run/secrets/email_username)
-  fi
-  if [ -e /run/secrets/email_password ]; then
-    export MAIL_PASSWORD=$(cat /run/secrets/email_password)
-  fi
+  #if [ -e /run/secrets/email_username ]; then
+  #  export MAIL_USERNAME=$(cat /run/secrets/email_username)
+  #fi
+  #if [ -e /run/secrets/email_password ]; then
+  #  export MAIL_PASSWORD=$(cat /run/secrets/email_password)
+  #fi
   if [ -e /run/secrets/vite_app_name ]; then
     export VITE_APP_NAME=$(cat /run/secrets/vite_app_name)
   fi
