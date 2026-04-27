@@ -79,7 +79,8 @@
                 @if(Auth::check())
 
                     <ul class="nav navbar-nav">
-                        <li id="homePage"><a href="/home">Home</a></li>
+                        <li id="homePage"><a href="/home/{{ auth()->user()->id }}">Home</a></li>
+                        <li id="search"><a href="/search">Search</a></li>
                         <li id="profilePage"><a href="/userprofile">Profile</a></li>
                         <li id="tracksPage"><a href="/tracks">Tracks</a></li>
                         <li id="playlistsPage"><a href="/playlists">Playlists</a></li>
@@ -103,6 +104,7 @@
                 @else
                     <ul class="nav navbar-nav">
                         <li id="homePage"><a href="/">Home</a></li>
+                        <li id="search"><a href="/search">Search</a></li>
                         <li id="loginPage"><a href="{{ route('login') }}">Login</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

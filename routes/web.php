@@ -20,6 +20,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/home/{id?}', [UserController::class, 'index'])->name('home');
+Route::get('/searchresults', [GuestController::class, 'searchResults'])
+    ->name('searchresults');
+Route::get('/search', [GuestController::class, 'search'])
+    ->name('search');
+
 Route::middleware('guest')->group(function () {
 //root route
 Route::get('/', [GuestController::class, 'index']);
@@ -31,7 +37,6 @@ Route::post('/username', [GuestController::class, 'postUserName']);
 
 Route::middleware('auth')->group(function () {
 //user routes
-Route::get('/home', [UserController::class, 'index'])->name('home');
 Route::get('/userprofile',[UserController::class, 'getProfile']);
 Route::post('/saveprofile',[UserController::class, 'saveProfile']);
 Route::post('/saveprofilepic',[UserController::class, 'savePicture']);
@@ -57,7 +62,7 @@ Route::get('/image', [ResourcesController::class, 'loadImage']);
 Route::get('/audio/{id}', [ResourcesController::class, 'loadAudio']);
 });
 
-Route::get('/test-mail', function () {
+/*Route::get('/test-mail', function () {
     try {
         Mail::raw('Mailgun test successful!', function ($message) {
             $message->to('rterrazas328@gmail.com')
@@ -77,21 +82,16 @@ Route::get('/test-mail', function () {
             'trace' => $e->getTraceAsString() // optional, but very useful
         ], 500);
     }
-    /*Mail::raw('Mailgun test successful!', function ($message) {
-        $message->to('rterrazas328@gmail.com')->subject('Mailgun Test');
-    });
-
-    return 'Sent!';*/
-});
+});//*/
 
 
 /*Route::get('/', function () {
     return view('welcome');
 });*/
 
-Route::get('/dashboard', function () {
+/*Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');//*/
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

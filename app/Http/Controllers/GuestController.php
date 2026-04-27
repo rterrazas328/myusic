@@ -41,8 +41,33 @@ class GuestController extends Controller {
 		return view('auth.username', [ 'page_name' => 'username']);
 	}
 
+
+	public function search()
+	{
+		return view('search', [ 'page_name' => 'search']);
+	}
+
+	public function searchResults(Request $request)
+	{
+		$request->validate([
+			'search_query' => 'nullable|string|max:100',
+		]);
+
+		$query = $request->only('search_query');
+
+		$results = DB::select('SELECT * FROM music WHERE song_name LIKE ? LIMIT 20', ["%".$query['search_query']."%"]);
+
+		if($results){
+			return view('search-results', [ 'data' => $results, 'page_name' => 'searchResults']);
+		}
+		else{
+			return view('search-results', [ 'data' => 0, 'page_name' => 'searchResults']);
+		}
+
+	}
+
 	public function postUserName(Request $request){
-		$this->validate($request, [
+		$request->validate([
 			'honeypot' => 'required|in:IS-421-RRZ',
 			'email' => 'required|email|max:50',
 		]);
@@ -54,9 +79,10 @@ class GuestController extends Controller {
 
 
 		//$eMessage = "Your username is ".$results[0]['user'];
-		$eMessage = "Your username is ".$results[0]->user;
+		
 
 		if($results){
+			$eMessage = "Your username is ".$results[0]->user;
 			Mail::raw($eMessage, function($message) use ($userEmail){
 
 				$message->to($userEmail['email'])->subject('User Name Retrieval!');

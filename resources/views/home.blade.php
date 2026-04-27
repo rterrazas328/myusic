@@ -5,10 +5,24 @@
 		<div class="container-fluid">
 			<div class="jumbotron">
 				<h1  class="text-info" align="center">MyUsic</h1>
-				<div class="col-md-1">
-					{{"Welcome ".Auth::user()['user']}}
-					<a class="navbar-brand " href="#"></a>
-				</div>
+				@if(Auth::check())
+					@if (Auth::user()['user'] == $username)
+						<div class="col-md-1">
+							{{"Welcome ".Auth::user()['user']}}
+							<a class="navbar-brand " href="#"></a>
+						</div>
+					@else
+						<div class="col-md-1">
+							{{"Viewing ".$username."'s Profile"}}
+							<a class="navbar-brand " href="#"></a>
+						</div>
+					@endif
+				@else
+					<div class="col-md-1">
+						{{"Viewing ".$username."'s Profile"}}
+						<a class="navbar-brand " href="#"></a>
+					</div>
+				@endif
 			</div>
 			<div class="row">
 				<div class="col-sm-4" style="background-color:#696969;">
@@ -48,7 +62,11 @@
                                 <td>{{ $track->authors }}</td>
                                 <td>{{ $track->song_name }}</td>
                                 <td>{{ $track->genre }}</td>
-                                <td><audio controls> <source src="{{ "/audio/".$track->id }}" type="audio/mpeg">Your browser does not support the audio element.</audio></td>
+								@if(Auth::check())
+                                	<td><audio controls> <source src="{{ "/audio/".$track->id }}" type="audio/mpeg">Your browser does not support the audio element.</audio></td>
+								@else
+									<td></td>
+								@endif
                             </tr>
                         @endforeach
 					</table>

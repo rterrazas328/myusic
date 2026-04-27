@@ -40,11 +40,15 @@ class UserController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($id = null)
 	{
-		$userID = Auth::user()['id'];
 
-        $userTracks = DB::select('SELECT * FROM music where band_id = ?', [$userID]);
+		if ($id == null)
+		{
+			$id = Auth::user()['id'];
+		}
+		
+        $userTracks = DB::select('SELECT * FROM music where band_id = ?', [$id]);
 
 		//$profile = null;
 
@@ -56,8 +60,10 @@ class UserController extends Controller {
 			$profile = $userProfile->profile_picture;
 
 		}*/
+		$user = User::find($id);
 
-		return view('home', ['data' => $userTracks, 'page_name' => 'home']);
+
+		return view('home', ['data' => $userTracks, 'page_name' => 'home', 'username' => $user->user]);
 	}
 
 	public function getProfile(){

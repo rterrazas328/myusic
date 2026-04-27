@@ -37,9 +37,9 @@ class ResourcesController extends Controller
         }
 
 
-        if ($track->band_id != $userID) {
+        /*if ($track->band_id != $userID) {
             abort(403);
-        }
+        }//*/
 
         $path = $track->file_path;
 

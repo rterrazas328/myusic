@@ -16,12 +16,6 @@
                     <a class="navbar-brand " href="#"></a>
                 </div>
             </div>
-            <a href="{{ route('login') }}" class="btn btn-primary btn-lg active" role="button">Log In</a>
-            <br>
-            <br>
-            <a href="{{ route('register') }}" class="btn btn-primary btn-lg active" role="button">Sign Up</a>
-            <br>
-            <br>
         </div>
     <script src="./js/searchresults.js" ></script>
     </section>
