@@ -27,7 +27,7 @@
                                     <td>{{ $track->authors }}</td>
                                     <td>{{ $track->song_name }}</td>
                                     <td>{{ $track->genre }}</td>
-                                    <td><a style="color: blue;" href={{"/home/".$track->id}}>profile link</a></td>
+                                    <td><a style="color: blue;" href={{"/home/".$track->band_id}}>profile link</a></td>
                                 </tr>
                             @endforeach
                         @endif
