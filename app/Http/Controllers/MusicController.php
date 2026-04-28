@@ -50,7 +50,7 @@ class MusicController extends Controller{
 
     public function saveTrack(Request $request){
         $request->validate([
-            'mp3' => 'max:7000',
+            'mp3' => 'max:12000',
         ]);
         //'mp3' => 'file|mimes:mp3,wav,ogg|max:7000',
 

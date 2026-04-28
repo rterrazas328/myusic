@@ -41,8 +41,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY . .
 
 # Set upload limit + PHP config
-RUN echo "upload_max_filesize=8M" > /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "post_max_size=8M" >> /usr/local/etc/php/conf.d/uploads.ini
+RUN echo "upload_max_filesize=12M" > /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size=12M" >> /usr/local/etc/php/conf.d/uploads.ini
 
 # Install PHP dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
